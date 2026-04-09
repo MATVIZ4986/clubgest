@@ -1,0 +1,77 @@
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<h1>Registro de estudiante</h1>
+
+<form action="/inscribirse" method="POST">
+
+Nombre
+<br>
+<input type="text" name="nombre" required>
+
+<br><br>
+
+Apellido
+<br>
+<input type="text" name="apellido" required>
+
+<br><br>
+
+Correo institucional
+<br>
+<input type="email" name="correo" required>
+
+<br><br>
+
+Genero
+<br>
+
+<select name="genero">
+
+<option>Masculino</option>
+<option>Femenino</option>
+
+</select>
+
+<br><br>
+
+Nivel
+<br>
+
+<select name="nivel">
+
+{% for nivel in niveles %}
+
+<option value="{{nivel.id_nivel}}">
+{{nivel.nombre_nivel}}
+</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+Especialidad
+<br>
+
+<select name="especialidad">
+
+{% for esp in especialidades %}
+
+<option value="{{esp.id_especialidad}}">
+{{esp.nombre_especialidad}}
+</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<button type="submit">
+Continuar
+</button>
+
+</form>

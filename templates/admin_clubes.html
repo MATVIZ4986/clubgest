@@ -1,0 +1,117 @@
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<h1>Estudiantes inscritos por club</h1>
+
+<a href="/admin">
+<button>Volver al panel administrador</button>
+</a>
+
+<br><br>
+
+<h2>Clubes 1ro de Bachillerato</h2>
+
+{% for club in primero|groupby("nombre_club") %}
+
+<h3>{{ club.grouper }}</h3>
+
+<table border="1">
+
+<tr>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Correo</th>
+<th>Género</th>
+<th>Especialidad</th>
+</tr>
+
+{% for e in club.list %}
+
+<tr>
+<td>{{e.nombres}}</td>
+<td>{{e.apellidos}}</td>
+<td>{{e.correo_institucional}}</td>
+<td>{{e.genero}}</td>
+<td>{{e.nombre_especialidad}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+{% endfor %}
+
+
+
+<h2>Clubes 2do de Bachillerato</h2>
+
+{% for club in segundo|groupby("nombre_club") %}
+
+<h3>{{ club.grouper }}</h3>
+
+<table border="1">
+
+<tr>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Correo</th>
+<th>Género</th>
+<th>Especialidad</th>
+</tr>
+
+{% for e in club.list %}
+
+<tr>
+<td>{{e.nombres}}</td>
+<td>{{e.apellidos}}</td>
+<td>{{e.correo_institucional}}</td>
+<td>{{e.genero}}</td>
+<td>{{e.nombre_especialidad}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+{% endfor %}
+
+
+
+<h2>Clubes 3ro de Bachillerato</h2>
+
+{% for club in tercero|groupby("nombre_club") %}
+
+<h3>{{ club.grouper }}</h3>
+
+<table border="1">
+
+<tr>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Correo</th>
+<th>Género</th>
+<th>Especialidad</th>
+</tr>
+
+{% for e in club.list %}
+
+<tr>
+<td>{{e.nombres}}</td>
+<td>{{e.apellidos}}</td>
+<td>{{e.correo_institucional}}</td>
+<td>{{e.genero}}</td>
+<td>{{e.nombre_especialidad}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+{% endfor %}

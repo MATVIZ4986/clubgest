@@ -1,0 +1,99 @@
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<h1>Estudiantes inscritos por nivel</h1>
+
+<a href="/admin">
+<button>Volver al panel administrador</button>
+</a>
+
+<br><br>
+
+<h2>1ro de Bachillerato</h2>
+
+<table border="1">
+
+<tr>
+<th>Club</th>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Correo</th>
+<th>Género</th>
+<th>Especialidad</th>
+</tr>
+
+{% for e in primero %}
+
+<tr>
+<td>{{e.nombre_club}}</td>
+<td>{{e.nombres}}</td>
+<td>{{e.apellidos}}</td>
+<td>{{e.correo_institucional}}</td>
+<td>{{e.genero}}</td>
+<td>{{e.nombre_especialidad}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<h2>2do de Bachillerato</h2>
+
+<table border="1">
+
+<tr>
+<th>Club</th>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Correo</th>
+<th>Género</th>
+<th>Especialidad</th>
+</tr>
+
+{% for e in segundo %}
+
+<tr>
+<td>{{e.nombre_club}}</td>
+<td>{{e.nombres}}</td>
+<td>{{e.apellidos}}</td>
+<td>{{e.correo_institucional}}</td>
+<td>{{e.genero}}</td>
+<td>{{e.nombre_especialidad}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<h2>3ro de Bachillerato</h2>
+
+<table border="1">
+
+<tr>
+<th>Club</th>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Correo</th>
+<th>Género</th>
+<th>Especialidad</th>
+</tr>
+
+{% for e in tercero %}
+
+<tr>
+<td>{{e.nombre_club}}</td>
+<td>{{e.nombres}}</td>
+<td>{{e.apellidos}}</td>
+<td>{{e.correo_institucional}}</td>
+<td>{{e.genero}}</td>
+<td>{{e.nombre_especialidad}}</td>
+</tr>
+
+{% endfor %}
+
+</table>

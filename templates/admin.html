@@ -1,0 +1,114 @@
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<h1>Panel Administrador - CLUBGEST</h1>
+
+<a href="/admin_inscripciones">
+<button>Estudiantes inscritos por nivel</button>
+</a>
+
+<a href="/admin_clubes">
+<button>Estudiantes inscritos por club</button>
+</a>
+
+<a href="/logout">
+<button>Cerrar sesión</button>
+</a>
+
+<br><br>
+
+<h2>Crear nuevo club</h2>
+
+<form action="/crear_club" method="POST">
+
+Nombre del club
+<br>
+<input type="text" name="nombre" required>
+
+<br><br>
+
+Cupo máximo
+<br>
+<input type="number" name="cupo" min="1" required>
+
+<br><br>
+
+Nivel
+<br>
+
+<select name="nivel">
+
+{% for n in niveles %}
+
+<option value="{{n.id_nivel}}">
+{{n.nombre_nivel}}
+</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<button type="submit">
+Crear club
+</button>
+
+</form>
+
+<br><br>
+
+<h2>Lista de clubes</h2>
+
+<table border="1">
+
+<tr>
+<th>Club</th>
+<th>Nivel</th>
+<th>Cupo máximo</th>
+<th>Cupos usados</th>
+<th>Estado</th>
+<th>Acción</th>
+</tr>
+
+{% for club in clubes %}
+
+<tr>
+
+<td>{{club.nombre_club}}</td>
+<td>{{club.nombre_nivel}}</td>
+<td>{{club.cupo_maximo}}</td>
+<td>{{club.cupos_usados}}</td>
+
+<td>
+{% if club.activo == 1 %}
+Activo
+{% else %}
+Inactivo
+{% endif %}
+</td>
+
+<td>
+
+{% if club.activo == 1 %}
+
+<a href="/desactivar/{{club.id_club}}">
+<button>Desactivar</button>
+</a>
+
+{% else %}
+
+<a href="/activar/{{club.id_club}}">
+<button>Activar</button>
+</a>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>

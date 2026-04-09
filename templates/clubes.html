@@ -1,0 +1,41 @@
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<h1>Seleccione un club</h1>
+
+<form action="/inscribir_club" method="POST">
+
+{% for club in clubes %}
+
+{% if club.cupos_restantes > 0 %}
+
+<input type="radio" name="club" value="{{club.id_club}}" required>
+
+<b>{{club.nombre_club}}</b>
+
+<br>
+
+Cupos disponibles: {{club.cupos_restantes}} / {{club.cupo_maximo}}
+
+<br><br>
+
+{% else %}
+
+<b>{{club.nombre_club}}</b> (LLENO)
+
+<br>
+
+Cupos disponibles: 0 / {{club.cupo_maximo}}
+
+<br><br>
+
+{% endif %}
+
+{% endfor %}
+
+<button type="submit">
+Inscribirse en el club
+</button>
+
+</form>

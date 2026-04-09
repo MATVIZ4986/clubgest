@@ -1,0 +1,27 @@
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<h1>Sistema de Clubs</h1>
+
+<h2>Seleccione una opción</h2>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+      <p style="color:lightgreen;">{{ msg }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<br>
+
+<a href="/formulario">
+<button>Ingresar como Estudiante</button>
+</a>
+
+<br><br>
+
+<a href="/login">
+<button>Administrador</button>
+</a>

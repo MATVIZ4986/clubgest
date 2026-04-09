@@ -1,0 +1,123 @@
+/* RESET GENERAL */
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#1e3a8a);
+    margin:0;
+    padding:0;
+    color:white;
+    text-align:center;
+}
+
+/* TITULOS */
+
+h1{
+    margin-top:60px;
+    font-size:40px;
+}
+
+h2{
+    font-weight:normal;
+    margin-bottom:40px;
+}
+
+/* BOTONES */
+
+button{
+    background:#3b82f6;
+    border:none;
+    color:white;
+    padding:12px 25px;
+    font-size:16px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#2563eb;
+    transform:scale(1.05);
+}
+
+/* LINKS */
+
+a{
+    text-decoration:none;
+}
+
+/* FORMULARIOS */
+
+form{
+    background:white;
+    color:black;
+    width:350px;
+    margin:40px auto;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0px 10px 25px rgba(0,0,0,0.3);
+}
+
+/* INPUTS */
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+/* TABLAS ADMIN */
+
+table{
+    margin:auto;
+    border-collapse:collapse;
+    background:white;
+    color:black;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+    padding:10px;
+}
+
+td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f1f5f9;
+}
+
+/* BOTONES DE ACCION */
+
+td a{
+    background:#ef4444;
+    color:white;
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:14px;
+}
+
+td a:hover{
+    background:#dc2626;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:600px){
+
+form{
+width:90%;
+}
+
+table{
+width:95%;
+}
+
+}
