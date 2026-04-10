@@ -1,18 +1,20 @@
 from flask import Flask, render_template, request, redirect, session, flash
 import mysql.connector
 from werkzeug.security import check_password_hash
+import os
 
 app = Flask(__name__)
 app.secret_key = "clave_secreta"
 
 
-# CONEXIÓN
+# CONEXIÓN (LOCAL + NUBE)
 def get_db():
     conexion = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="clubgest"
+        host=os.getenv("DB_HOST", "localhost"),
+        user=os.getenv("DB_USER", "root"),
+        password=os.getenv("DB_PASSWORD", ""),
+        database=os.getenv("DB_NAME", "clubgest"),
+        port=int(os.getenv("DB_PORT", 3306))
     )
     return conexion, conexion.cursor(dictionary=True)
 
@@ -257,7 +259,7 @@ def activar(id):
     return redirect("/admin")
 
 
-# INSCRIPCIONES OPTIMIZADAS
+# INSCRIPCIONES ADMIN
 @app.route("/admin_inscripciones")
 def admin_inscripciones():
 
