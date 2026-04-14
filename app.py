@@ -30,20 +30,7 @@ def inicio():
 @app.route("/init_db")
 def init_db():
 
-    import os
-    import mysql.connector
-
-    conexion = mysql.connector.connect(
-        host=os.getenv("DB_HOST"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        port=int(os.getenv("DB_PORT"))
-    )
-
-    cursor = conexion.cursor()
-
-    cursor.execute("CREATE DATABASE IF NOT EXISTS railway")
-    cursor.execute("USE railway")
+    conexion, cursor = get_db()
 
     # TABLAS
     cursor.execute("""
@@ -101,7 +88,7 @@ def init_db():
     conexion.commit()
     conexion.close()
 
-    return "Base de datos creada correctamente 🚀"
+    return "Tablas creadas correctamente 🚀"
 
 
 # FORMULARIO
