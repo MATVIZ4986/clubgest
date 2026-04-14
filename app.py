@@ -4,17 +4,20 @@ from werkzeug.security import check_password_hash
 import os
 
 app = Flask(__name__)
+app.config["PROPAGATE_EXCEPTIONS"] = True
 app.secret_key = "clave_secreta"
 
 
 # CONEXIÓN (LOCAL + NUBE)
 def get_db():
     conexion = mysql.connector.connect(
-        host=os.getenv("DB_HOST", "localhost"),
-        user=os.getenv("DB_USER", "root"),
-        password=os.getenv("DB_PASSWORD", ""),
-        database=os.getenv("DB_NAME", "clubgest"),
-        port=int(os.getenv("DB_PORT", 3306))
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
+        port=int(os.getenv("DB_PORT")),
+        ssl_disabled=True,
+        connection_timeout=10
     )
     return conexion, conexion.cursor(dictionary=True)
 
