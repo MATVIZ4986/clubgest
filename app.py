@@ -16,8 +16,7 @@ def get_db():
         password=os.getenv("DB_PASSWORD"),
         database=os.getenv("DB_NAME"),
         port=int(os.getenv("DB_PORT")),
-        ssl_disabled=True,
-        connection_timeout=10
+        auth_plugin='mysql_native_password'
     )
     return conexion, conexion.cursor(dictionary=True)
 
