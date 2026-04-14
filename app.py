@@ -27,6 +27,83 @@ def inicio():
     return render_template("inicio.html")
 
 
+@app.route("/init_db")
+def init_db():
+
+    import os
+    import mysql.connector
+
+    conexion = mysql.connector.connect(
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        port=int(os.getenv("DB_PORT"))
+    )
+
+    cursor = conexion.cursor()
+
+    cursor.execute("CREATE DATABASE IF NOT EXISTS railway")
+    cursor.execute("USE railway")
+
+    # TABLAS
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS niveles (
+        id_nivel INT AUTO_INCREMENT PRIMARY KEY,
+        nombre_nivel VARCHAR(50)
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS especialidades (
+        id_especialidad INT AUTO_INCREMENT PRIMARY KEY,
+        nombre_especialidad VARCHAR(50)
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS estudiantes (
+        id_estudiante INT AUTO_INCREMENT PRIMARY KEY,
+        nombres VARCHAR(100),
+        apellidos VARCHAR(100),
+        correo_institucional VARCHAR(100),
+        genero ENUM('Masculino','Femenino'),
+        id_nivel INT,
+        id_especialidad INT
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS clubes (
+        id_club INT AUTO_INCREMENT PRIMARY KEY,
+        nombre_club VARCHAR(100),
+        cupo_maximo INT,
+        id_nivel INT,
+        activo TINYINT(1) DEFAULT 1
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS inscripciones (
+        id_inscripcion INT AUTO_INCREMENT PRIMARY KEY,
+        id_estudiante INT,
+        id_club INT
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS admin (
+        id_admin INT AUTO_INCREMENT PRIMARY KEY,
+        usuario VARCHAR(50),
+        password VARCHAR(255)
+    )
+    """)
+
+    conexion.commit()
+    conexion.close()
+
+    return "Base de datos creada correctamente 🚀"
+
+
 # FORMULARIO
 @app.route("/formulario")
 def formulario():
