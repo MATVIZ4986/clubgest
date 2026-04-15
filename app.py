@@ -179,43 +179,24 @@ def login():
 
 
 # PANEL ADMIN
-@app.route("/admin")
-def admin():
-
-    if "admin" not in session:
-        return redirect("/login")
-
-    conexion, cursor = get_db()
-
-    cursor.execute("""
-    SELECT clubes.*, niveles.nombre_nivel,
-    COUNT(inscripciones.id_inscripcion) AS cupos_usados
-    FROM clubes
-    LEFT JOIN inscripciones ON clubes.id_club = inscripciones.id_club
-    JOIN niveles ON clubes.id_nivel = niveles.id_nivel
-    GROUP BY clubes.id_club
-    """)
-
-    clubes = cursor.fetchall()
-
-    cursor.execute("SELECT * FROM niveles")
-    niveles = cursor.fetchall()
-
-    conexion.close()
-
-    return render_template("admin.html", clubes=clubes, niveles=niveles)
-
-
-# CREAR CLUB
 @app.route("/crear_club", methods=["POST"])
 def crear_club():
 
     if "admin" not in session:
         return redirect("/login")
 
-    nombre = request.form["nombre"]
-    cupo = int(request.form["cupo"])
-    nivel = request.form["nivel"]
+    nombre = request.form.get("nombre")
+    cupo = request.form.get("cupo")
+    nivel = request.form.get("nivel")
+
+    # VALIDACIÓN
+    if not nombre or not cupo or not nivel:
+        return "Faltan datos del formulario"
+
+    try:
+        cupo = int(cupo)
+    except:
+        return "Cupo inválido"
 
     if cupo <= 0:
         return "El cupo debe ser mayor que 0"
@@ -223,8 +204,8 @@ def crear_club():
     conexion, cursor = get_db()
 
     cursor.execute("""
-    INSERT INTO clubes (nombre_club,cupo_maximo,id_nivel,activo)
-    VALUES (%s,%s,%s,1)
+        INSERT INTO clubes (nombre_club,cupo_maximo,id_nivel,activo)
+        VALUES (%s,%s,%s,1)
     """,(nombre,cupo,nivel))
 
     conexion.commit()
