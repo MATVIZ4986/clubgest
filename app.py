@@ -168,11 +168,12 @@ def login():
 
         conexion.close()
 
-        if admin and check_password_hash(admin["password"], password):
+        if admin and admin["password"] == password:
             session["admin"] = True
             return redirect("/admin")
 
-        return "Usuario o contraseña incorrectos"
+        flash("Usuario o contraseña incorrectos")
+        return redirect("/login")
 
     return render_template("login.html")
 
