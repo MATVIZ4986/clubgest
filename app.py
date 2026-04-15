@@ -109,7 +109,7 @@ def clubes():
     return render_template("clubes.html", clubes=clubes)
 
 
-# INSCRIBIR CLUB
+# INSCRIPCIÓN CLUB
 @app.route("/inscribir_club", methods=["POST"])
 def inscribir_club():
 
@@ -136,6 +136,10 @@ def inscribir_club():
     """, (club,))
 
     datos = cursor.fetchone()
+
+    if not datos:
+        conexion.close()
+        return "Club no encontrado"
 
     if datos["usados"] >= datos["cupo_maximo"]:
         conexion.close()
@@ -182,7 +186,7 @@ def login():
     return render_template("login.html")
 
 
-# 🔥 ESTA ES LA QUE TE FALTABA (CAUSA DEL 404)
+# PANEL ADMIN
 @app.route("/admin")
 def admin():
 
@@ -207,12 +211,10 @@ def admin():
 
     conexion.close()
 
-    return render_template("admin.html",
-                           clubes=clubes,
-                           niveles=niveles)
+    return render_template("admin.html", clubes=clubes, niveles=niveles)
 
 
-# CREAR CLUB
+# CREAR CLUB (ARREGLADO - SIN 500 ERRORS)
 @app.route("/crear_club", methods=["POST"])
 def crear_club():
 
@@ -223,8 +225,10 @@ def crear_club():
     cupo = request.form.get("cupo")
     nivel = request.form.get("nivel")
 
+    print("DEBUG:", nombre, cupo, nivel)
+
     if not nombre or not cupo or not nivel:
-        return "Faltan datos"
+        return "Faltan datos del formulario"
 
     try:
         cupo = int(cupo)
@@ -232,17 +236,21 @@ def crear_club():
         return "Cupo inválido"
 
     if cupo <= 0:
-        return "Cupo debe ser mayor a 0"
+        return "El cupo debe ser mayor a 0"
 
-    conexion, cursor = get_db()
+    try:
+        conexion, cursor = get_db()
 
-    cursor.execute("""
-        INSERT INTO clubes (nombre_club,cupo_maximo,id_nivel,activo)
-        VALUES (%s,%s,%s,1)
-    """, (nombre, cupo, nivel))
+        cursor.execute("""
+            INSERT INTO clubes (nombre_club,cupo_maximo,id_nivel,activo)
+            VALUES (%s,%s,%s,1)
+        """, (nombre, cupo, nivel))
 
-    conexion.commit()
-    conexion.close()
+        conexion.commit()
+        conexion.close()
+
+    except Exception as e:
+        return f"Error MySQL: {e}"
 
     return redirect("/admin")
 
@@ -276,7 +284,7 @@ def activar(id):
     return redirect("/admin")
 
 
-# ADMIN INSCRIPCIONES
+# INSCRIPCIONES ADMIN
 @app.route("/admin_inscripciones")
 def admin_inscripciones():
 
